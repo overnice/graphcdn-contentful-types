@@ -1,0 +1,6 @@
+hook_attributes:
+  url: "https://graphcdn-contentful-types.glitch.me"
+
+default_permissions:
+  contents: write
+  metadata: read
