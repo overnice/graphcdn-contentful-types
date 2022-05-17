@@ -1,0 +1,1 @@
+# GraphCDN Contentful types

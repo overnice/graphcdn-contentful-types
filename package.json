@@ -1,0 +1,5 @@
+{
+  "name": "@overnice/graphcdn-contentful-types",
+  "version": "1.0.0",
+  "main": "index.d.ts"
+}
