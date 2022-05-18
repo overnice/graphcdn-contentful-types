@@ -495,6 +495,7 @@ export type CaseStudy = Entry & {
   cacheHitRate?: Maybe<Scalars['Float']>
   decreasedDatabasePressure?: Maybe<Scalars['Int']>
   body?: Maybe<CaseStudyBody>
+  test1?: Maybe<Scalars['String']>
 }
 
 /** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudy) */
@@ -594,6 +595,11 @@ export type CaseStudyDecreasedDatabasePressureArgs = {
 
 /** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudy) */
 export type CaseStudyBodyArgs = {
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudy) */
+export type CaseStudyTest1Args = {
   locale?: InputMaybe<Scalars['String']>
 }
 
@@ -1427,6 +1433,13 @@ export type CaseStudyFilter = {
   body_exists?: InputMaybe<Scalars['Boolean']>
   body_contains?: InputMaybe<Scalars['String']>
   body_not_contains?: InputMaybe<Scalars['String']>
+  test1_exists?: InputMaybe<Scalars['Boolean']>
+  test1?: InputMaybe<Scalars['String']>
+  test1_not?: InputMaybe<Scalars['String']>
+  test1_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  test1_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  test1_contains?: InputMaybe<Scalars['String']>
+  test1_not_contains?: InputMaybe<Scalars['String']>
   OR?: InputMaybe<Array<InputMaybe<CaseStudyFilter>>>
   AND?: InputMaybe<Array<InputMaybe<CaseStudyFilter>>>
 }
@@ -1487,6 +1500,8 @@ export enum CaseStudyOrder {
   CacheHitRateDesc = 'cacheHitRate_DESC',
   DecreasedDatabasePressureAsc = 'decreasedDatabasePressure_ASC',
   DecreasedDatabasePressureDesc = 'decreasedDatabasePressure_DESC',
+  Test1Asc = 'test1_ASC',
+  Test1Desc = 'test1_DESC',
   SysIdAsc = 'sys_id_ASC',
   SysIdDesc = 'sys_id_DESC',
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
