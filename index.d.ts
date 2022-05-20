@@ -37,10 +37,10 @@ export type Query = {
   __typename?: 'Query'
   asset?: Maybe<Asset>
   assetCollection?: Maybe<AssetCollection>
-  codeBlock?: Maybe<CodeBlock>
-  codeBlockCollection?: Maybe<CodeBlockCollection>
   textWithImages?: Maybe<TextWithImages>
   textWithImagesCollection?: Maybe<TextWithImagesCollection>
+  codeBlock?: Maybe<CodeBlock>
+  codeBlockCollection?: Maybe<CodeBlockCollection>
   tech?: Maybe<Tech>
   techCollection?: Maybe<TechCollection>
   client?: Maybe<Client>
@@ -73,21 +73,6 @@ export type QueryAssetCollectionArgs = {
   order?: InputMaybe<Array<InputMaybe<AssetOrder>>>
 }
 
-export type QueryCodeBlockArgs = {
-  id: Scalars['String']
-  preview?: InputMaybe<Scalars['Boolean']>
-  locale?: InputMaybe<Scalars['String']>
-}
-
-export type QueryCodeBlockCollectionArgs = {
-  skip?: InputMaybe<Scalars['Int']>
-  limit?: InputMaybe<Scalars['Int']>
-  preview?: InputMaybe<Scalars['Boolean']>
-  locale?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<CodeBlockFilter>
-  order?: InputMaybe<Array<InputMaybe<CodeBlockOrder>>>
-}
-
 export type QueryTextWithImagesArgs = {
   id: Scalars['String']
   preview?: InputMaybe<Scalars['Boolean']>
@@ -101,6 +86,21 @@ export type QueryTextWithImagesCollectionArgs = {
   locale?: InputMaybe<Scalars['String']>
   where?: InputMaybe<TextWithImagesFilter>
   order?: InputMaybe<Array<InputMaybe<TextWithImagesOrder>>>
+}
+
+export type QueryCodeBlockArgs = {
+  id: Scalars['String']
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type QueryCodeBlockCollectionArgs = {
+  skip?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+  where?: InputMaybe<CodeBlockFilter>
+  order?: InputMaybe<Array<InputMaybe<CodeBlockOrder>>>
 }
 
 export type QueryTechArgs = {
@@ -502,7 +502,7 @@ export type TextWithImages = Entry & {
   sys: Sys
   contentfulMetadata: ContentfulMetadata
   linkedFrom?: Maybe<TextWithImagesLinkingCollections>
-  text?: Maybe<Scalars['String']>
+  text?: Maybe<TextWithImagesText>
   imagesCollection?: Maybe<AssetCollection>
 }
 
@@ -534,6 +534,31 @@ export type TextWithImagesLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>
   preview?: InputMaybe<Scalars['Boolean']>
   locale?: InputMaybe<Scalars['String']>
+}
+
+export type TextWithImagesText = {
+  __typename?: 'TextWithImagesText'
+  json: Scalars['JSON']
+  links: TextWithImagesTextLinks
+}
+
+export type TextWithImagesTextLinks = {
+  __typename?: 'TextWithImagesTextLinks'
+  entries: TextWithImagesTextEntries
+  assets: TextWithImagesTextAssets
+}
+
+export type TextWithImagesTextEntries = {
+  __typename?: 'TextWithImagesTextEntries'
+  inline: Array<Maybe<Entry>>
+  hyperlink: Array<Maybe<Entry>>
+  block: Array<Maybe<Entry>>
+}
+
+export type TextWithImagesTextAssets = {
+  __typename?: 'TextWithImagesTextAssets'
+  hyperlink: Array<Maybe<Asset>>
+  block: Array<Maybe<Asset>>
 }
 
 export type AssetCollection = {
@@ -1370,6 +1395,28 @@ export enum AssetOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
 }
 
+export type TextWithImagesFilter = {
+  sys?: InputMaybe<SysFilter>
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  text_exists?: InputMaybe<Scalars['Boolean']>
+  text_contains?: InputMaybe<Scalars['String']>
+  text_not_contains?: InputMaybe<Scalars['String']>
+  imagesCollection_exists?: InputMaybe<Scalars['Boolean']>
+  OR?: InputMaybe<Array<InputMaybe<TextWithImagesFilter>>>
+  AND?: InputMaybe<Array<InputMaybe<TextWithImagesFilter>>>
+}
+
+export enum TextWithImagesOrder {
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+}
+
 /** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/codeBlock) */
 export type CodeBlock = Entry & {
   __typename?: 'CodeBlock'
@@ -1439,32 +1486,6 @@ export type CodeBlockFilter = {
 export enum CodeBlockOrder {
   LanguageAsc = 'language_ASC',
   LanguageDesc = 'language_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-}
-
-export type TextWithImagesFilter = {
-  sys?: InputMaybe<SysFilter>
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
-  text_exists?: InputMaybe<Scalars['Boolean']>
-  text?: InputMaybe<Scalars['String']>
-  text_not?: InputMaybe<Scalars['String']>
-  text_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  text_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  text_contains?: InputMaybe<Scalars['String']>
-  text_not_contains?: InputMaybe<Scalars['String']>
-  imagesCollection_exists?: InputMaybe<Scalars['Boolean']>
-  OR?: InputMaybe<Array<InputMaybe<TextWithImagesFilter>>>
-  AND?: InputMaybe<Array<InputMaybe<TextWithImagesFilter>>>
-}
-
-export enum TextWithImagesOrder {
   SysIdAsc = 'sys_id_ASC',
   SysIdDesc = 'sys_id_DESC',
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
