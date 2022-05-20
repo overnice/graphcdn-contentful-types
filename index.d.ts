@@ -483,6 +483,7 @@ export type CaseStudy = Entry & {
   authorsCollection?: Maybe<CaseStudyAuthorsCollection>
   metaDescription?: Maybe<Scalars['String']>
   metaImage?: Maybe<Asset>
+  client?: Maybe<Client>
   cardStyle?: Maybe<Scalars['String']>
   quote?: Maybe<Scalars['String']>
   quoteAuthor?: Maybe<Person>
@@ -532,6 +533,12 @@ export type CaseStudyMetaDescriptionArgs = {
 
 /** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudy) */
 export type CaseStudyMetaImageArgs = {
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudy) */
+export type CaseStudyClientArgs = {
   preview?: InputMaybe<Scalars['Boolean']>
   locale?: InputMaybe<Scalars['String']>
 }
@@ -873,10 +880,18 @@ export type ClientTeamSizeArgs = {
 export type ClientLinkingCollections = {
   __typename?: 'ClientLinkingCollections'
   entryCollection?: Maybe<EntryCollection>
+  caseStudyCollection?: Maybe<CaseStudyCollection>
   personCollection?: Maybe<PersonCollection>
 }
 
 export type ClientLinkingCollectionsEntryCollectionArgs = {
+  skip?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type ClientLinkingCollectionsCaseStudyCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>
   limit?: InputMaybe<Scalars['Int']>
   preview?: InputMaybe<Scalars['Boolean']>
@@ -1298,6 +1313,7 @@ export enum AssetOrder {
 }
 
 export type CaseStudyFilter = {
+  client?: InputMaybe<CfClientNestedFilter>
   quoteAuthor?: InputMaybe<CfPersonNestedFilter>
   sys?: InputMaybe<SysFilter>
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
@@ -1333,6 +1349,7 @@ export type CaseStudyFilter = {
   metaDescription_contains?: InputMaybe<Scalars['String']>
   metaDescription_not_contains?: InputMaybe<Scalars['String']>
   metaImage_exists?: InputMaybe<Scalars['Boolean']>
+  client_exists?: InputMaybe<Scalars['Boolean']>
   cardStyle_exists?: InputMaybe<Scalars['Boolean']>
   cardStyle?: InputMaybe<Scalars['String']>
   cardStyle_not?: InputMaybe<Scalars['String']>
@@ -1429,6 +1446,39 @@ export type CaseStudyFilter = {
   body_not_contains?: InputMaybe<Scalars['String']>
   OR?: InputMaybe<Array<InputMaybe<CaseStudyFilter>>>
   AND?: InputMaybe<Array<InputMaybe<CaseStudyFilter>>>
+}
+
+export type CfClientNestedFilter = {
+  sys?: InputMaybe<SysFilter>
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  name_exists?: InputMaybe<Scalars['Boolean']>
+  name?: InputMaybe<Scalars['String']>
+  name_not?: InputMaybe<Scalars['String']>
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_contains?: InputMaybe<Scalars['String']>
+  name_not_contains?: InputMaybe<Scalars['String']>
+  logo_exists?: InputMaybe<Scalars['Boolean']>
+  industry_exists?: InputMaybe<Scalars['Boolean']>
+  foundingDate_exists?: InputMaybe<Scalars['Boolean']>
+  foundingDate?: InputMaybe<Scalars['DateTime']>
+  foundingDate_not?: InputMaybe<Scalars['DateTime']>
+  foundingDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>
+  foundingDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>
+  foundingDate_gt?: InputMaybe<Scalars['DateTime']>
+  foundingDate_gte?: InputMaybe<Scalars['DateTime']>
+  foundingDate_lt?: InputMaybe<Scalars['DateTime']>
+  foundingDate_lte?: InputMaybe<Scalars['DateTime']>
+  techStackCollection_exists?: InputMaybe<Scalars['Boolean']>
+  teamSize_exists?: InputMaybe<Scalars['Boolean']>
+  teamSize?: InputMaybe<Scalars['String']>
+  teamSize_not?: InputMaybe<Scalars['String']>
+  teamSize_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  teamSize_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  teamSize_contains?: InputMaybe<Scalars['String']>
+  teamSize_not_contains?: InputMaybe<Scalars['String']>
+  OR?: InputMaybe<Array<InputMaybe<CfClientNestedFilter>>>
+  AND?: InputMaybe<Array<InputMaybe<CfClientNestedFilter>>>
 }
 
 export type CfPersonNestedFilter = {
@@ -1649,39 +1699,6 @@ export type PersonFilter = {
   caseStudyImage_exists?: InputMaybe<Scalars['Boolean']>
   OR?: InputMaybe<Array<InputMaybe<PersonFilter>>>
   AND?: InputMaybe<Array<InputMaybe<PersonFilter>>>
-}
-
-export type CfClientNestedFilter = {
-  sys?: InputMaybe<SysFilter>
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
-  name_exists?: InputMaybe<Scalars['Boolean']>
-  name?: InputMaybe<Scalars['String']>
-  name_not?: InputMaybe<Scalars['String']>
-  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  name_contains?: InputMaybe<Scalars['String']>
-  name_not_contains?: InputMaybe<Scalars['String']>
-  logo_exists?: InputMaybe<Scalars['Boolean']>
-  industry_exists?: InputMaybe<Scalars['Boolean']>
-  foundingDate_exists?: InputMaybe<Scalars['Boolean']>
-  foundingDate?: InputMaybe<Scalars['DateTime']>
-  foundingDate_not?: InputMaybe<Scalars['DateTime']>
-  foundingDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>
-  foundingDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>
-  foundingDate_gt?: InputMaybe<Scalars['DateTime']>
-  foundingDate_gte?: InputMaybe<Scalars['DateTime']>
-  foundingDate_lt?: InputMaybe<Scalars['DateTime']>
-  foundingDate_lte?: InputMaybe<Scalars['DateTime']>
-  techStackCollection_exists?: InputMaybe<Scalars['Boolean']>
-  teamSize_exists?: InputMaybe<Scalars['Boolean']>
-  teamSize?: InputMaybe<Scalars['String']>
-  teamSize_not?: InputMaybe<Scalars['String']>
-  teamSize_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  teamSize_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  teamSize_contains?: InputMaybe<Scalars['String']>
-  teamSize_not_contains?: InputMaybe<Scalars['String']>
-  OR?: InputMaybe<Array<InputMaybe<CfClientNestedFilter>>>
-  AND?: InputMaybe<Array<InputMaybe<CfClientNestedFilter>>>
 }
 
 export enum PersonOrder {
