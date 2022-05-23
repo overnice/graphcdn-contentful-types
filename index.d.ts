@@ -37,10 +37,10 @@ export type Query = {
   __typename?: 'Query'
   asset?: Maybe<Asset>
   assetCollection?: Maybe<AssetCollection>
-  caseStudy?: Maybe<CaseStudy>
-  caseStudyCollection?: Maybe<CaseStudyCollection>
   textWithImages?: Maybe<TextWithImages>
   textWithImagesCollection?: Maybe<TextWithImagesCollection>
+  caseStudy?: Maybe<CaseStudy>
+  caseStudyCollection?: Maybe<CaseStudyCollection>
   codeBlock?: Maybe<CodeBlock>
   codeBlockCollection?: Maybe<CodeBlockCollection>
   tech?: Maybe<Tech>
@@ -73,21 +73,6 @@ export type QueryAssetCollectionArgs = {
   order?: InputMaybe<Array<InputMaybe<AssetOrder>>>
 }
 
-export type QueryCaseStudyArgs = {
-  id: Scalars['String']
-  preview?: InputMaybe<Scalars['Boolean']>
-  locale?: InputMaybe<Scalars['String']>
-}
-
-export type QueryCaseStudyCollectionArgs = {
-  skip?: InputMaybe<Scalars['Int']>
-  limit?: InputMaybe<Scalars['Int']>
-  preview?: InputMaybe<Scalars['Boolean']>
-  locale?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<CaseStudyFilter>
-  order?: InputMaybe<Array<InputMaybe<CaseStudyOrder>>>
-}
-
 export type QueryTextWithImagesArgs = {
   id: Scalars['String']
   preview?: InputMaybe<Scalars['Boolean']>
@@ -101,6 +86,21 @@ export type QueryTextWithImagesCollectionArgs = {
   locale?: InputMaybe<Scalars['String']>
   where?: InputMaybe<TextWithImagesFilter>
   order?: InputMaybe<Array<InputMaybe<TextWithImagesOrder>>>
+}
+
+export type QueryCaseStudyArgs = {
+  id: Scalars['String']
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type QueryCaseStudyCollectionArgs = {
+  skip?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+  where?: InputMaybe<CaseStudyFilter>
+  order?: InputMaybe<Array<InputMaybe<CaseStudyOrder>>>
 }
 
 export type QueryCodeBlockArgs = {
@@ -402,8 +402,8 @@ export enum ImageFormat {
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections'
   entryCollection?: Maybe<EntryCollection>
-  caseStudyCollection?: Maybe<CaseStudyCollection>
   textWithImagesCollection?: Maybe<TextWithImagesCollection>
+  caseStudyCollection?: Maybe<CaseStudyCollection>
   techCollection?: Maybe<TechCollection>
   clientCollection?: Maybe<ClientCollection>
   industryCollection?: Maybe<IndustryCollection>
@@ -419,14 +419,14 @@ export type AssetLinkingCollectionsEntryCollectionArgs = {
   locale?: InputMaybe<Scalars['String']>
 }
 
-export type AssetLinkingCollectionsCaseStudyCollectionArgs = {
+export type AssetLinkingCollectionsTextWithImagesCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>
   limit?: InputMaybe<Scalars['Int']>
   preview?: InputMaybe<Scalars['Boolean']>
   locale?: InputMaybe<Scalars['String']>
 }
 
-export type AssetLinkingCollectionsTextWithImagesCollectionArgs = {
+export type AssetLinkingCollectionsCaseStudyCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>
   limit?: InputMaybe<Scalars['Int']>
   preview?: InputMaybe<Scalars['Boolean']>
@@ -486,6 +486,93 @@ export type EntryCollection = {
 export type Entry = {
   sys: Sys
   contentfulMetadata: ContentfulMetadata
+}
+
+export type TextWithImagesCollection = {
+  __typename?: 'TextWithImagesCollection'
+  total: Scalars['Int']
+  skip: Scalars['Int']
+  limit: Scalars['Int']
+  items: Array<Maybe<TextWithImages>>
+}
+
+/** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/textWithImages) */
+export type TextWithImages = Entry & {
+  __typename?: 'TextWithImages'
+  sys: Sys
+  contentfulMetadata: ContentfulMetadata
+  linkedFrom?: Maybe<TextWithImagesLinkingCollections>
+  title?: Maybe<Scalars['String']>
+  text?: Maybe<TextWithImagesText>
+  imagesCollection?: Maybe<AssetCollection>
+}
+
+/** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/textWithImages) */
+export type TextWithImagesLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+/** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/textWithImages) */
+export type TextWithImagesTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/textWithImages) */
+export type TextWithImagesTextArgs = {
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/textWithImages) */
+export type TextWithImagesImagesCollectionArgs = {
+  skip?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type TextWithImagesLinkingCollections = {
+  __typename?: 'TextWithImagesLinkingCollections'
+  entryCollection?: Maybe<EntryCollection>
+}
+
+export type TextWithImagesLinkingCollectionsEntryCollectionArgs = {
+  skip?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type TextWithImagesText = {
+  __typename?: 'TextWithImagesText'
+  json: Scalars['JSON']
+  links: TextWithImagesTextLinks
+}
+
+export type TextWithImagesTextLinks = {
+  __typename?: 'TextWithImagesTextLinks'
+  entries: TextWithImagesTextEntries
+  assets: TextWithImagesTextAssets
+}
+
+export type TextWithImagesTextEntries = {
+  __typename?: 'TextWithImagesTextEntries'
+  inline: Array<Maybe<Entry>>
+  hyperlink: Array<Maybe<Entry>>
+  block: Array<Maybe<Entry>>
+}
+
+export type TextWithImagesTextAssets = {
+  __typename?: 'TextWithImagesTextAssets'
+  hyperlink: Array<Maybe<Asset>>
+  block: Array<Maybe<Asset>>
+}
+
+export type AssetCollection = {
+  __typename?: 'AssetCollection'
+  total: Scalars['Int']
+  skip: Scalars['Int']
+  limit: Scalars['Int']
+  items: Array<Maybe<Asset>>
 }
 
 export type CaseStudyCollection = {
@@ -1056,87 +1143,6 @@ export type CaseStudyBodyAssets = {
   block: Array<Maybe<Asset>>
 }
 
-export type TextWithImagesCollection = {
-  __typename?: 'TextWithImagesCollection'
-  total: Scalars['Int']
-  skip: Scalars['Int']
-  limit: Scalars['Int']
-  items: Array<Maybe<TextWithImages>>
-}
-
-/** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/textWithImages) */
-export type TextWithImages = Entry & {
-  __typename?: 'TextWithImages'
-  sys: Sys
-  contentfulMetadata: ContentfulMetadata
-  linkedFrom?: Maybe<TextWithImagesLinkingCollections>
-  text?: Maybe<TextWithImagesText>
-  imagesCollection?: Maybe<AssetCollection>
-}
-
-/** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/textWithImages) */
-export type TextWithImagesLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-/** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/textWithImages) */
-export type TextWithImagesTextArgs = {
-  locale?: InputMaybe<Scalars['String']>
-}
-
-/** Supposed to be used by Rich Text fields [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/textWithImages) */
-export type TextWithImagesImagesCollectionArgs = {
-  skip?: InputMaybe<Scalars['Int']>
-  limit?: InputMaybe<Scalars['Int']>
-  preview?: InputMaybe<Scalars['Boolean']>
-  locale?: InputMaybe<Scalars['String']>
-}
-
-export type TextWithImagesLinkingCollections = {
-  __typename?: 'TextWithImagesLinkingCollections'
-  entryCollection?: Maybe<EntryCollection>
-}
-
-export type TextWithImagesLinkingCollectionsEntryCollectionArgs = {
-  skip?: InputMaybe<Scalars['Int']>
-  limit?: InputMaybe<Scalars['Int']>
-  preview?: InputMaybe<Scalars['Boolean']>
-  locale?: InputMaybe<Scalars['String']>
-}
-
-export type TextWithImagesText = {
-  __typename?: 'TextWithImagesText'
-  json: Scalars['JSON']
-  links: TextWithImagesTextLinks
-}
-
-export type TextWithImagesTextLinks = {
-  __typename?: 'TextWithImagesTextLinks'
-  entries: TextWithImagesTextEntries
-  assets: TextWithImagesTextAssets
-}
-
-export type TextWithImagesTextEntries = {
-  __typename?: 'TextWithImagesTextEntries'
-  inline: Array<Maybe<Entry>>
-  hyperlink: Array<Maybe<Entry>>
-  block: Array<Maybe<Entry>>
-}
-
-export type TextWithImagesTextAssets = {
-  __typename?: 'TextWithImagesTextAssets'
-  hyperlink: Array<Maybe<Asset>>
-  block: Array<Maybe<Asset>>
-}
-
-export type AssetCollection = {
-  __typename?: 'AssetCollection'
-  total: Scalars['Int']
-  skip: Scalars['Int']
-  limit: Scalars['Int']
-  items: Array<Maybe<Asset>>
-}
-
 export type TechCollection = {
   __typename?: 'TechCollection'
   total: Scalars['Int']
@@ -1395,6 +1401,37 @@ export enum AssetOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
 }
 
+export type TextWithImagesFilter = {
+  sys?: InputMaybe<SysFilter>
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  title_exists?: InputMaybe<Scalars['Boolean']>
+  title?: InputMaybe<Scalars['String']>
+  title_not?: InputMaybe<Scalars['String']>
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  title_contains?: InputMaybe<Scalars['String']>
+  title_not_contains?: InputMaybe<Scalars['String']>
+  text_exists?: InputMaybe<Scalars['Boolean']>
+  text_contains?: InputMaybe<Scalars['String']>
+  text_not_contains?: InputMaybe<Scalars['String']>
+  imagesCollection_exists?: InputMaybe<Scalars['Boolean']>
+  OR?: InputMaybe<Array<InputMaybe<TextWithImagesFilter>>>
+  AND?: InputMaybe<Array<InputMaybe<TextWithImagesFilter>>>
+}
+
+export enum TextWithImagesOrder {
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+}
+
 export type CaseStudyFilter = {
   quoteAuthor?: InputMaybe<CfPersonNestedFilter>
   sys?: InputMaybe<SysFilter>
@@ -1585,28 +1622,6 @@ export enum CaseStudyOrder {
   CacheHitRateDesc = 'cacheHitRate_DESC',
   DecreasedDatabasePressureAsc = 'decreasedDatabasePressure_ASC',
   DecreasedDatabasePressureDesc = 'decreasedDatabasePressure_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-}
-
-export type TextWithImagesFilter = {
-  sys?: InputMaybe<SysFilter>
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
-  text_exists?: InputMaybe<Scalars['Boolean']>
-  text_contains?: InputMaybe<Scalars['String']>
-  text_not_contains?: InputMaybe<Scalars['String']>
-  imagesCollection_exists?: InputMaybe<Scalars['Boolean']>
-  OR?: InputMaybe<Array<InputMaybe<TextWithImagesFilter>>>
-  AND?: InputMaybe<Array<InputMaybe<TextWithImagesFilter>>>
-}
-
-export enum TextWithImagesOrder {
   SysIdAsc = 'sys_id_ASC',
   SysIdDesc = 'sys_id_DESC',
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
