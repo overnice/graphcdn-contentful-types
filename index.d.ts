@@ -39,6 +39,8 @@ export type Query = {
   assetCollection?: Maybe<AssetCollection>
   caseStudy?: Maybe<CaseStudy>
   caseStudyCollection?: Maybe<CaseStudyCollection>
+  caseStudyGroup?: Maybe<CaseStudyGroup>
+  caseStudyGroupCollection?: Maybe<CaseStudyGroupCollection>
   client?: Maybe<Client>
   clientCollection?: Maybe<ClientCollection>
   textWithImages?: Maybe<TextWithImages>
@@ -84,6 +86,21 @@ export type QueryCaseStudyCollectionArgs = {
   locale?: InputMaybe<Scalars['String']>
   where?: InputMaybe<CaseStudyFilter>
   order?: InputMaybe<Array<InputMaybe<CaseStudyOrder>>>
+}
+
+export type QueryCaseStudyGroupArgs = {
+  id: Scalars['String']
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type QueryCaseStudyGroupCollectionArgs = {
+  skip?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+  where?: InputMaybe<CaseStudyGroupFilter>
+  order?: InputMaybe<Array<InputMaybe<CaseStudyGroupOrder>>>
 }
 
 export type QueryClientArgs = {
@@ -386,6 +403,7 @@ export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections'
   entryCollection?: Maybe<EntryCollection>
   caseStudyCollection?: Maybe<CaseStudyCollection>
+  caseStudyGroupCollection?: Maybe<CaseStudyGroupCollection>
   clientCollection?: Maybe<ClientCollection>
   textWithImagesCollection?: Maybe<TextWithImagesCollection>
   techCollection?: Maybe<TechCollection>
@@ -402,6 +420,13 @@ export type AssetLinkingCollectionsEntryCollectionArgs = {
 }
 
 export type AssetLinkingCollectionsCaseStudyCollectionArgs = {
+  skip?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type AssetLinkingCollectionsCaseStudyGroupCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>
   limit?: InputMaybe<Scalars['Int']>
   preview?: InputMaybe<Scalars['Boolean']>
@@ -483,8 +508,8 @@ export type CaseStudy = Entry & {
   authorsCollection?: Maybe<CaseStudyAuthorsCollection>
   metaDescription?: Maybe<Scalars['String']>
   metaImage?: Maybe<Asset>
-  industry?: Maybe<Scalars['String']>
-  technology?: Maybe<Scalars['String']>
+  industry?: Maybe<CaseStudyGroup>
+  technology?: Maybe<CaseStudyGroup>
   cardStyle?: Maybe<Scalars['String']>
   quote?: Maybe<Scalars['String']>
   quoteAuthor?: Maybe<Person>
@@ -536,11 +561,13 @@ export type CaseStudyMetaImageArgs = {
 
 /** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudy) */
 export type CaseStudyIndustryArgs = {
+  preview?: InputMaybe<Scalars['Boolean']>
   locale?: InputMaybe<Scalars['String']>
 }
 
 /** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudy) */
 export type CaseStudyTechnologyArgs = {
+  preview?: InputMaybe<Scalars['Boolean']>
   locale?: InputMaybe<Scalars['String']>
 }
 
@@ -941,6 +968,107 @@ export type ClientCollection = {
   items: Array<Maybe<Client>>
 }
 
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudyGroup) */
+export type CaseStudyGroup = Entry & {
+  __typename?: 'CaseStudyGroup'
+  sys: Sys
+  contentfulMetadata: ContentfulMetadata
+  linkedFrom?: Maybe<CaseStudyGroupLinkingCollections>
+  title?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
+  slug?: Maybe<Scalars['String']>
+  metaDescription?: Maybe<Scalars['String']>
+  metaImage?: Maybe<Asset>
+  subline?: Maybe<Scalars['String']>
+  body?: Maybe<CaseStudyGroupBody>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudyGroup) */
+export type CaseStudyGroupLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudyGroup) */
+export type CaseStudyGroupTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudyGroup) */
+export type CaseStudyGroupTypeArgs = {
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudyGroup) */
+export type CaseStudyGroupSlugArgs = {
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudyGroup) */
+export type CaseStudyGroupMetaDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudyGroup) */
+export type CaseStudyGroupMetaImageArgs = {
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudyGroup) */
+export type CaseStudyGroupSublineArgs = {
+  locale?: InputMaybe<Scalars['String']>
+}
+
+/** [See type definition](https://app.contentful.com/spaces/yq1dddfl2vc7/content_types/caseStudyGroup) */
+export type CaseStudyGroupBodyArgs = {
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type CaseStudyGroupLinkingCollections = {
+  __typename?: 'CaseStudyGroupLinkingCollections'
+  entryCollection?: Maybe<EntryCollection>
+  caseStudyCollection?: Maybe<CaseStudyCollection>
+}
+
+export type CaseStudyGroupLinkingCollectionsEntryCollectionArgs = {
+  skip?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type CaseStudyGroupLinkingCollectionsCaseStudyCollectionArgs = {
+  skip?: InputMaybe<Scalars['Int']>
+  limit?: InputMaybe<Scalars['Int']>
+  preview?: InputMaybe<Scalars['Boolean']>
+  locale?: InputMaybe<Scalars['String']>
+}
+
+export type CaseStudyGroupBody = {
+  __typename?: 'CaseStudyGroupBody'
+  json: Scalars['JSON']
+  links: CaseStudyGroupBodyLinks
+}
+
+export type CaseStudyGroupBodyLinks = {
+  __typename?: 'CaseStudyGroupBodyLinks'
+  entries: CaseStudyGroupBodyEntries
+  assets: CaseStudyGroupBodyAssets
+}
+
+export type CaseStudyGroupBodyEntries = {
+  __typename?: 'CaseStudyGroupBodyEntries'
+  inline: Array<Maybe<Entry>>
+  hyperlink: Array<Maybe<Entry>>
+  block: Array<Maybe<Entry>>
+}
+
+export type CaseStudyGroupBodyAssets = {
+  __typename?: 'CaseStudyGroupBodyAssets'
+  hyperlink: Array<Maybe<Asset>>
+  block: Array<Maybe<Asset>>
+}
+
 export type CaseStudyBody = {
   __typename?: 'CaseStudyBody'
   json: Scalars['JSON']
@@ -964,6 +1092,14 @@ export type CaseStudyBodyAssets = {
   __typename?: 'CaseStudyBodyAssets'
   hyperlink: Array<Maybe<Asset>>
   block: Array<Maybe<Asset>>
+}
+
+export type CaseStudyGroupCollection = {
+  __typename?: 'CaseStudyGroupCollection'
+  total: Scalars['Int']
+  skip: Scalars['Int']
+  limit: Scalars['Int']
+  items: Array<Maybe<CaseStudyGroup>>
 }
 
 export type TextWithImagesCollection = {
@@ -1304,6 +1440,8 @@ export enum AssetOrder {
 }
 
 export type CaseStudyFilter = {
+  industry?: InputMaybe<CfCaseStudyGroupNestedFilter>
+  technology?: InputMaybe<CfCaseStudyGroupNestedFilter>
   quoteAuthor?: InputMaybe<CfPersonNestedFilter>
   sys?: InputMaybe<SysFilter>
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
@@ -1340,19 +1478,7 @@ export type CaseStudyFilter = {
   metaDescription_not_contains?: InputMaybe<Scalars['String']>
   metaImage_exists?: InputMaybe<Scalars['Boolean']>
   industry_exists?: InputMaybe<Scalars['Boolean']>
-  industry?: InputMaybe<Scalars['String']>
-  industry_not?: InputMaybe<Scalars['String']>
-  industry_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  industry_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  industry_contains?: InputMaybe<Scalars['String']>
-  industry_not_contains?: InputMaybe<Scalars['String']>
   technology_exists?: InputMaybe<Scalars['Boolean']>
-  technology?: InputMaybe<Scalars['String']>
-  technology_not?: InputMaybe<Scalars['String']>
-  technology_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  technology_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  technology_contains?: InputMaybe<Scalars['String']>
-  technology_not_contains?: InputMaybe<Scalars['String']>
   cardStyle_exists?: InputMaybe<Scalars['Boolean']>
   cardStyle?: InputMaybe<Scalars['String']>
   cardStyle_not?: InputMaybe<Scalars['String']>
@@ -1411,6 +1537,52 @@ export type CaseStudyFilter = {
   AND?: InputMaybe<Array<InputMaybe<CaseStudyFilter>>>
 }
 
+export type CfCaseStudyGroupNestedFilter = {
+  sys?: InputMaybe<SysFilter>
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  title_exists?: InputMaybe<Scalars['Boolean']>
+  title?: InputMaybe<Scalars['String']>
+  title_not?: InputMaybe<Scalars['String']>
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  title_contains?: InputMaybe<Scalars['String']>
+  title_not_contains?: InputMaybe<Scalars['String']>
+  type_exists?: InputMaybe<Scalars['Boolean']>
+  type?: InputMaybe<Scalars['String']>
+  type_not?: InputMaybe<Scalars['String']>
+  type_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  type_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  type_contains?: InputMaybe<Scalars['String']>
+  type_not_contains?: InputMaybe<Scalars['String']>
+  slug_exists?: InputMaybe<Scalars['Boolean']>
+  slug?: InputMaybe<Scalars['String']>
+  slug_not?: InputMaybe<Scalars['String']>
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  slug_contains?: InputMaybe<Scalars['String']>
+  slug_not_contains?: InputMaybe<Scalars['String']>
+  metaDescription_exists?: InputMaybe<Scalars['Boolean']>
+  metaDescription?: InputMaybe<Scalars['String']>
+  metaDescription_not?: InputMaybe<Scalars['String']>
+  metaDescription_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  metaDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  metaDescription_contains?: InputMaybe<Scalars['String']>
+  metaDescription_not_contains?: InputMaybe<Scalars['String']>
+  metaImage_exists?: InputMaybe<Scalars['Boolean']>
+  subline_exists?: InputMaybe<Scalars['Boolean']>
+  subline?: InputMaybe<Scalars['String']>
+  subline_not?: InputMaybe<Scalars['String']>
+  subline_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  subline_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  subline_contains?: InputMaybe<Scalars['String']>
+  subline_not_contains?: InputMaybe<Scalars['String']>
+  body_exists?: InputMaybe<Scalars['Boolean']>
+  body_contains?: InputMaybe<Scalars['String']>
+  body_not_contains?: InputMaybe<Scalars['String']>
+  OR?: InputMaybe<Array<InputMaybe<CfCaseStudyGroupNestedFilter>>>
+  AND?: InputMaybe<Array<InputMaybe<CfCaseStudyGroupNestedFilter>>>
+}
+
 export type CfPersonNestedFilter = {
   sys?: InputMaybe<SysFilter>
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
@@ -1449,10 +1621,6 @@ export enum CaseStudyOrder {
   SlugDesc = 'slug_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
-  IndustryAsc = 'industry_ASC',
-  IndustryDesc = 'industry_DESC',
-  TechnologyAsc = 'technology_ASC',
-  TechnologyDesc = 'technology_DESC',
   CardStyleAsc = 'cardStyle_ASC',
   CardStyleDesc = 'cardStyle_DESC',
   ImprovementTypeAsc = 'improvementType_ASC',
@@ -1463,6 +1631,69 @@ export enum CaseStudyOrder {
   CacheHitRateDesc = 'cacheHitRate_DESC',
   DecreasedDatabasePressureAsc = 'decreasedDatabasePressure_ASC',
   DecreasedDatabasePressureDesc = 'decreasedDatabasePressure_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+}
+
+export type CaseStudyGroupFilter = {
+  sys?: InputMaybe<SysFilter>
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>
+  title_exists?: InputMaybe<Scalars['Boolean']>
+  title?: InputMaybe<Scalars['String']>
+  title_not?: InputMaybe<Scalars['String']>
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  title_contains?: InputMaybe<Scalars['String']>
+  title_not_contains?: InputMaybe<Scalars['String']>
+  type_exists?: InputMaybe<Scalars['Boolean']>
+  type?: InputMaybe<Scalars['String']>
+  type_not?: InputMaybe<Scalars['String']>
+  type_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  type_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  type_contains?: InputMaybe<Scalars['String']>
+  type_not_contains?: InputMaybe<Scalars['String']>
+  slug_exists?: InputMaybe<Scalars['Boolean']>
+  slug?: InputMaybe<Scalars['String']>
+  slug_not?: InputMaybe<Scalars['String']>
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  slug_contains?: InputMaybe<Scalars['String']>
+  slug_not_contains?: InputMaybe<Scalars['String']>
+  metaDescription_exists?: InputMaybe<Scalars['Boolean']>
+  metaDescription?: InputMaybe<Scalars['String']>
+  metaDescription_not?: InputMaybe<Scalars['String']>
+  metaDescription_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  metaDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  metaDescription_contains?: InputMaybe<Scalars['String']>
+  metaDescription_not_contains?: InputMaybe<Scalars['String']>
+  metaImage_exists?: InputMaybe<Scalars['Boolean']>
+  subline_exists?: InputMaybe<Scalars['Boolean']>
+  subline?: InputMaybe<Scalars['String']>
+  subline_not?: InputMaybe<Scalars['String']>
+  subline_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  subline_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  subline_contains?: InputMaybe<Scalars['String']>
+  subline_not_contains?: InputMaybe<Scalars['String']>
+  body_exists?: InputMaybe<Scalars['Boolean']>
+  body_contains?: InputMaybe<Scalars['String']>
+  body_not_contains?: InputMaybe<Scalars['String']>
+  OR?: InputMaybe<Array<InputMaybe<CaseStudyGroupFilter>>>
+  AND?: InputMaybe<Array<InputMaybe<CaseStudyGroupFilter>>>
+}
+
+export enum CaseStudyGroupOrder {
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  TypeAsc = 'type_ASC',
+  TypeDesc = 'type_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
   SysIdAsc = 'sys_id_ASC',
   SysIdDesc = 'sys_id_DESC',
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
